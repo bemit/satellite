@@ -1,0 +1,16 @@
+{
+  "name": "orbiter/satellite",
+  "license": "MIT",
+  "description": "Easy to use Event & Middleware Mini-Framework, powered by popular projects and PSR's",
+  "require": {
+    "php": ">=7.0",
+    "psr/event-dispatcher": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Satellite\\": "src"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
