@@ -2,7 +2,9 @@
 
 namespace Satellite;
 
+use Psr\Container\ContainerInterface;
 use Satellite\Event\EventDispatcher;
+use Satellite\Event\EventListener;
 
 /**
  * Singleton Interface for a Satellite App Event Storage.
@@ -20,7 +22,7 @@ class Event {
     protected static $i;
 
     protected function __construct() {
-        $this->dispatcher = new EventDispatcher();
+        $this->dispatcher = new EventDispatcher(new EventListener());
     }
 
     /**
@@ -28,21 +30,39 @@ class Event {
      */
     protected static function i() {
         if(null === static::$i) {
-            if(__CLASS__ !== static::class) {
-                $tmp = static::class;
-                static::$i = new $tmp;
-            } else {
-                static::$i = new self;
-            }
+            static::$i = new static();
         }
 
         return static::$i;
     }
 
-    public static function on($id, $listener) {
-        static::i()->dispatcher->listener->on($id, $listener);
+    /**
+     * Binds any PSR-11 Container to the event store
+     *
+     * @param \Psr\Container\ContainerInterface $container
+     */
+    public static function useContainer(ContainerInterface $container) {
+        static::i()->dispatcher->useContainer($container);
     }
 
+    /**
+     * @return \Psr\EventDispatcher\EventDispatcherInterface
+     */
+    public static function dispatcher() {
+        return static::i()->dispatcher;
+    }
+
+    /**
+     * @param string $event
+     * @param callable $listener
+     */
+    public static function on($event, $listener) {
+        static::i()->dispatcher->listener->on($event, $listener);
+    }
+
+    /**
+     * @param object $event
+     */
     public static function dispatch($event) {
         static::i()->dispatcher->dispatch($event);
     }

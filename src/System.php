@@ -15,10 +15,9 @@ class System {
     public function launch() {
         static::$starttime = date('Y-m-d H:i:s');
 
-        $exec = new SystemLaunchEvent();
-        $exec->cli = PHP_SAPI === 'cli';
+        $launch = new SystemLaunchEvent();
+        $launch->cli = PHP_SAPI === 'cli';
 
-        Event::dispatch($exec);
+        Event::dispatch($launch);
     }
 }
-

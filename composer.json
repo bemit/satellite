@@ -4,7 +4,16 @@
   "description": "Easy to use Event & Middleware Mini-Framework, powered by popular projects and PSR's",
   "require": {
     "php": ">=7.0",
-    "psr/event-dispatcher": "^1.0"
+    "psr/event-dispatcher": "^1.0",
+    "psr/container": "^1.0",
+    "php-di/invoker": "^2.0.0"
+  },
+  "suggest": {
+    "orbiter/satellite-di": "SystemLaunch Event Handler, adds DI based on PHP-DI, implements PSR-11",
+    "orbiter/satellite-console": "SystemLaunch Event Handler, adds CLI based on GetOpt",
+    "orbiter/satellite-route": "SystemLaunch Event Handler, adds Routing Middleware and unified Route Store, implements PSR-7,17 and PSR-15 middlewares helper",
+    "orbiter/satellite-response": "Middleware Pipe, Dispatcher and Emitter, compatible with PSR-7,15,17",
+    "orbiter/satellite-whoops": "Nice Error Pages for Developers in CLI and Routes"
   },
   "autoload": {
     "psr-4": {

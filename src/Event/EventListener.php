@@ -30,12 +30,10 @@ class EventListener implements \Psr\EventDispatcher\ListenerProviderInterface {
         if(isset($this->store[$class])) {
             array_push($events, ...$this->store[$class]);
         }
-
-        foreach($this->ids as $id) {
-            if(is_subclass_of($event, $id)) {
-                if(isset($this->store[$id])) {
-                    array_push($events, ...$this->store[$id]);
-                }
+        $parents = class_parents($event);
+        foreach($parents as $parent) {
+            if(isset($this->store[$parent])) {
+                array_push($events, ...$this->store[$parent]);
             }
         }
 
