@@ -9,12 +9,19 @@ use ReflectionFunctionAbstract;
 /**
  * Inject entries from a DI container using the type-hints.
  *
- * Based upon Invoker\ParameterResolver\Container\TypeHintContainerResolver, but allows type hinting `providedParameters`.
- * e.g. a callable with `Foo $foo, Bar $bar` could get `$invoker->call(callable, [Foo $far])` and `Foo` is not overwritten from container
- * > not on inheritance: a child class is considered different then the parent for this check.
+ * Based upon Invoker\ParameterResolver\Container\TypeHintContainerResolver,
+ * but allows type hinting `providedParameters`, e.g.:
+ * - a callable with the signature `(Foo $foo, Bar $bar)`
+ * - gets `$invoker->call(callable, [Foo $far])`
+ * - `Foo` is not overwritten from container
  *
- * Behaviour of original
- * e.g. a callable with `Foo $foo, Bar $bar` could get `$invoker->call(callable, [Foo $far])` but here `Foo` is not overwritten from container, thus the callable will get maybe an empty object instead of an filled one
+ * > note on inheritance: a child class is considered different then the parent for this check.
+ *
+ * Behaviour of original, e.g.:
+ * - a callable with `Foo $foo, Bar $bar`
+ * - gets `$invoker->call(callable, [Foo $far])`
+ * - but here `Foo` is overwritten by the container
+ * - thus the callable gets - depending on setup - an empty object instead of an filled one or with wrong data
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
  * @author Michael Becker <michael@bemit.codes> (modified)
