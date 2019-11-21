@@ -5,12 +5,14 @@ namespace Satellite\Event;
 interface DelegateInterface {
 
     /**
-     * Delegate the handling of an event to another callable
-     *
-     * @param callable $handler that will handle the evt
+     * @param callable $handler
+     */
+    public function setHandler($handler);
+
+    /**
      * @param object $evt
      */
-    public function __construct($handler, $evt);
+    public function setEvent($evt);
 
     /**
      * @return callable

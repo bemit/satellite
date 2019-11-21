@@ -7,13 +7,16 @@ class Delegate implements DelegateInterface {
     protected $evt;
 
     /**
-     * Delegate constructor.
-     *
      * @param callable $handler
+     */
+    public function setHandler($handler) {
+        $this->handler = $handler;
+    }
+
+    /**
      * @param object $evt
      */
-    public function __construct($handler, $evt) {
-        $this->handler = $handler;
+    public function setEvent($evt) {
         $this->evt = $evt;
     }
 

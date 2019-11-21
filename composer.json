@@ -13,7 +13,8 @@
     "orbiter/satellite-console": "SystemLaunch Event Handler, adds CLI based on GetOpt",
     "orbiter/satellite-route": "SystemLaunch Event Handler, adds Routing Middleware and unified Route Store, implements PSR-7,17 and PSR-15 middlewares helper",
     "orbiter/satellite-response": "Middleware Pipe, Dispatcher and Emitter, compatible with PSR-7,15,17",
-    "orbiter/satellite-whoops": "Nice Error Pages for Developers in CLI and Routes"
+    "orbiter/satellite-whoops": "Nice Error Pages for Developers in CLI and Routes",
+    "orbiter/annotations-util": "Easy setup of doctrine/annotations with cached reflections"
   },
   "autoload": {
     "psr-4": {

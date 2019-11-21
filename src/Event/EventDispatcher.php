@@ -7,7 +7,7 @@ use Psr\Container\ContainerInterface;
 use Psr\EventDispatcher\ListenerProviderInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
 
-class EventDispatcher implements \Psr\EventDispatcher\EventDispatcherInterface {
+class EventDispatcher implements \Psr\EventDispatcher\EventDispatcherInterface, EventDispatcherInterface {
     /**
      * @var \Psr\EventDispatcher\ListenerProviderInterface
      */
@@ -33,6 +33,8 @@ class EventDispatcher implements \Psr\EventDispatcher\EventDispatcherInterface {
         }
 
         $this->container = $container;
+
+        // setup invoker with container and resolvers that should be used
         $this->invoker = new Invoker(null, $container);
         $this->invoker->getParameterResolver()
                       ->prependResolver(
@@ -87,10 +89,10 @@ class EventDispatcher implements \Psr\EventDispatcher\EventDispatcherInterface {
         }
         $result = $this->invoke($event_handler, $event);
 
-        if(is_subclass_of($result, DelegateInterface::class)) {
+        if(is_subclass_of($result, DelegateInterface::class) && $result->getHandler() && $result->getEvent()) {
             $res = $this->invoke($result->getHandler(), $result->getEvent());
 
-            // delegation enables to un-dock the result, e.g. add logic without relying that it passes back the `event`
+            // delegation enables to un-dock the result, e.g. add logic without relying that it passes back anything, when something it is expected to be compatible with the `Event` it has received
             if(isset($res)) {
                 return $res;
             }
@@ -108,7 +110,7 @@ class EventDispatcher implements \Psr\EventDispatcher\EventDispatcherInterface {
      * @throws \Invoker\Exception\InvocationException
      * @throws \Invoker\Exception\NotCallableException
      * @throws \Invoker\Exception\NotEnoughParametersException
-     * @return mixed
+     * @return mixed|\Satellite\Event\DelegateInterface
      */
     protected function invoke($event_handler, $event) {
         return $this->invoker->call($event_handler, [$event]);
