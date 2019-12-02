@@ -6,14 +6,14 @@ class System {
     /**
      * @var string $starttime
      */
-    public static $starttime;
+    public $starttime;
     /**
      * @var bool $verbose verbose
      */
-    public static $verbose;
+    public $verbose;
 
     public function launch() {
-        static::$starttime = date('Y-m-d H:i:s');
+        $this->starttime = date('Y-m-d H:i:s');
 
         $launch = new SystemLaunchEvent();
         $launch->cli = PHP_SAPI === 'cli';

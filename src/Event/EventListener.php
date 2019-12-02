@@ -2,7 +2,7 @@
 
 namespace Satellite\Event;
 
-class EventListener implements \Psr\EventDispatcher\ListenerProviderInterface, EventListenerInterface {
+class EventListener implements EventListenerInterface {
 
     protected $ids = [];
     protected $store = [];

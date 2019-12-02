@@ -2,7 +2,9 @@
 
 namespace Satellite\Event;
 
-interface EventListenerInterface {
+use Psr\EventDispatcher\ListenerProviderInterface;
+
+interface EventListenerInterface extends ListenerProviderInterface {
 
     /**
      * @param string $id of the event, typically the classname like `RouteEvent::class`

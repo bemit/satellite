@@ -11,13 +11,16 @@ use Satellite\Event\EventListener;
  * Singleton Interface for a Satellite App Event Storage.
  *
  * Register new listener:
- * Event::on(EventClass:class, static function(EventClass $evt) {
+ * Event::on(EventClass:class, static function(AnyEventClass $evt) {
  * };
  *
  * @package Satellite
  */
 class Event implements EventStoreSingleton {
 
+    /**
+     * @var \Satellite\Event\EventDispatcherInterface
+     */
     protected $dispatcher;
 
     protected static $i;
@@ -75,7 +78,7 @@ class Event implements EventStoreSingleton {
     }
 
     /**
-     * @param object $event
+     * @param \object $event
      *
      * @throws \Invoker\Exception\InvocationException
      * @throws \Invoker\Exception\NotCallableException
@@ -83,5 +86,19 @@ class Event implements EventStoreSingleton {
      */
     public static function dispatch($event) {
         static::i()->dispatcher->dispatch($event);
+    }
+
+    /**
+     * @param callable $event_handler
+     * @param object|\object $event
+     *
+     * @throws \Invoker\Exception\InvocationException
+     * @throws \Invoker\Exception\NotCallableException
+     * @throws \Invoker\Exception\NotEnoughParametersException
+     *
+     * @return mixed
+     */
+    public static function execute($event_handler, $event) {
+        return static::i()->dispatcher->execute($event_handler, $event);
     }
 }

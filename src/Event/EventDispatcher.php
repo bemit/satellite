@@ -4,12 +4,12 @@ namespace Satellite\Event;
 
 use Invoker\Invoker;
 use Psr\Container\ContainerInterface;
-use Psr\EventDispatcher\ListenerProviderInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
 
 class EventDispatcher implements \Psr\EventDispatcher\EventDispatcherInterface, EventDispatcherInterface {
     /**
-     * @var \Psr\EventDispatcher\ListenerProviderInterface
+     * @todo make protected
+     * @var EventListenerInterface
      */
     public $listener;
     /**
@@ -21,7 +21,7 @@ class EventDispatcher implements \Psr\EventDispatcher\EventDispatcherInterface, 
      */
     protected $invoker;
 
-    public function __construct(ListenerProviderInterface $listener) {
+    public function __construct(EventListenerInterface $listener) {
         $this->listener = $listener;
         $this->invoker = new Invoker();
     }
@@ -52,7 +52,7 @@ class EventDispatcher implements \Psr\EventDispatcher\EventDispatcherInterface, 
      * @throws \Invoker\Exception\NotCallableException
      * @throws \Invoker\Exception\NotEnoughParametersException
      *
-     * @return object|\Psr\EventDispatcher\object
+     * @return object|\Psr\EventDispatcher\object|\object
      *   The Event that was passed, now modified by listeners.
      */
     public function dispatch($event) {
@@ -75,15 +75,19 @@ class EventDispatcher implements \Psr\EventDispatcher\EventDispatcherInterface, 
     }
 
     /**
-     * @param $event_handler
-     * @param $event
+     * Executes any event_handler with the given event
+     *
+     * @param callable $event_handler
+     * @param object $event
+     * @todo move up to event store
      *
      * @throws \Invoker\Exception\InvocationException
      * @throws \Invoker\Exception\NotCallableException
      * @throws \Invoker\Exception\NotEnoughParametersException
-     * @return mixed|\Satellite\Event\DelegateInterface
+     *
+     * @return object|\Psr\EventDispatcher\object|\object
      */
-    protected function execute($event_handler, $event) {
+    public function execute($event_handler, $event) {
         if(empty($event_handler)) {
             throw new \RuntimeException('Empty event_handler');
         }
