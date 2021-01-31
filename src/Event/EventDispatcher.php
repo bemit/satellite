@@ -2,44 +2,23 @@
 
 namespace Satellite\Event;
 
-use Invoker\Invoker;
-use Psr\Container\ContainerInterface;
+use Invoker\InvokerInterface;
+use Psr\EventDispatcher\ListenerProviderInterface;
 use Psr\EventDispatcher\StoppableEventInterface;
 
-class EventDispatcher implements \Psr\EventDispatcher\EventDispatcherInterface, EventDispatcherInterface {
+class EventDispatcher implements \Psr\EventDispatcher\EventDispatcherInterface {
     /**
-     * @todo make protected
-     * @var EventListenerInterface
+     * @var ListenerProviderInterface
      */
-    public $listener;
+    protected $listener;
     /**
-     * @var ContainerInterface
-     */
-    protected $container;
-    /**
-     * @var \Invoker\Invoker
+     * @var InvokerInterface
      */
     protected $invoker;
 
-    public function __construct(EventListenerInterface $listener) {
+    public function __construct(ListenerProviderInterface $listener, InvokerInterface $invoker) {
         $this->listener = $listener;
-        $this->invoker = new Invoker();
-    }
-
-    public function useContainer(ContainerInterface $container) {
-        if($this->container) {
-            // only one-time
-            return;
-        }
-
-        $this->container = $container;
-
-        // setup invoker with container and resolvers that should be used
-        $this->invoker = new Invoker(null, $container);
-        $this->invoker->getParameterResolver()
-                      ->prependResolver(
-                          new EventDispatcherTypeHintContainerResolver($container)
-                      );
+        $this->invoker = $invoker;
     }
 
     /**
@@ -48,12 +27,12 @@ class EventDispatcher implements \Psr\EventDispatcher\EventDispatcherInterface, 
      * @param object|StoppableEventInterface $event
      *   The object to process.
      *
-     * @throws \Invoker\Exception\InvocationException
+     * @return object|\Psr\EventDispatcher\object|\object
+     *   The Event that was passed, now modified by listeners.
      * @throws \Invoker\Exception\NotCallableException
      * @throws \Invoker\Exception\NotEnoughParametersException
      *
-     * @return object|\Psr\EventDispatcher\object|\object
-     *   The Event that was passed, now modified by listeners.
+     * @throws \Invoker\Exception\InvocationException
      */
     public function dispatch($event) {
         $to_exec = $this->listener->getListenersForEvent($event);
@@ -76,47 +55,28 @@ class EventDispatcher implements \Psr\EventDispatcher\EventDispatcherInterface, 
 
     /**
      * Executes any event_handler with the given event
-     *
      * @param callable $event_handler
      * @param object $event
-     * @todo move up to event store
-     *
-     * @throws \Invoker\Exception\InvocationException
-     * @throws \Invoker\Exception\NotCallableException
-     * @throws \Invoker\Exception\NotEnoughParametersException
      *
      * @return object|\Psr\EventDispatcher\object|\object
+     *
+     * @throws \Invoker\Exception\NotEnoughParametersException
+     * @throws \Invoker\Exception\InvocationException
+     * @throws \Invoker\Exception\NotCallableException
      */
-    public function execute($event_handler, $event) {
+    protected function execute($event_handler, $event) {
         if(empty($event_handler)) {
             throw new \RuntimeException('Empty event_handler');
         }
-        $result = $this->invoke($event_handler, $event);
+        $result = $this->invoker->call($event_handler, [$event]);
 
         if(is_subclass_of($result, DelegateInterface::class) && $result->getHandler() && $result->getEvent()) {
-            $res = $this->invoke($result->getHandler(), $result->getEvent());
+            $res = $this->invoker->call($result->getHandler(), [$result->getEvent()]);
 
             // delegation enables to un-dock the result, e.g. add logic without relying that it passes back anything, when something it is expected to be compatible with the `Event` it has received
-            if(isset($res)) {
-                return $res;
-            }
-
-            return $result->getEvent();
+            return $res ?? $result->getEvent();
         }
 
         return $result;
-    }
-
-    /**
-     * @param $event_handler
-     * @param $event
-     *
-     * @throws \Invoker\Exception\InvocationException
-     * @throws \Invoker\Exception\NotCallableException
-     * @throws \Invoker\Exception\NotEnoughParametersException
-     * @return mixed|\Satellite\Event\DelegateInterface
-     */
-    protected function invoke($event_handler, $event) {
-        return $this->invoker->call($event_handler, [$event]);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Satellite\Event;
+namespace Satellite;
 
 use Invoker\ParameterResolver\ParameterResolver;
 use Psr\Container\ContainerInterface;
@@ -26,7 +26,7 @@ use ReflectionFunctionAbstract;
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
  * @author Michael Becker <michael@bemit.codes> (modified)
  */
-class EventDispatcherTypeHintContainerResolver implements ParameterResolver {
+class InvokerTypeHintContainerResolver implements ParameterResolver {
     /**
      * @var ContainerInterface
      */

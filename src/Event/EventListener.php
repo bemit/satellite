@@ -2,7 +2,9 @@
 
 namespace Satellite\Event;
 
-class EventListener implements EventListenerInterface {
+use Psr\EventDispatcher\ListenerProviderInterface;
+
+class EventListener implements EventListenerInterface, ListenerProviderInterface {
 
     protected $ids = [];
     protected $store = [];
@@ -11,7 +13,7 @@ class EventListener implements EventListenerInterface {
      * @param string $id of the event, typically the classname like `RouteEvent::class`
      * @param callable|string|array $listener anything the invoker can execute
      */
-    public function on($id, $listener) {
+    public function on(string $id, $listener) {
         if(!isset($this->store[$id]) || !is_array($this->store[$id])) {
             $this->store[$id] = [];
         }
