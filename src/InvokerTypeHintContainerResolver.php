@@ -39,6 +39,13 @@ class InvokerTypeHintContainerResolver implements ParameterResolver {
         $this->container = $container;
     }
 
+    /**
+     * @param ReflectionFunctionAbstract $reflection
+     * @param array $providedParameters
+     * @param array $resolvedParameters
+     * @return array
+     * @throws \ReflectionException
+     */
     public function getParameters(
         ReflectionFunctionAbstract $reflection,
         array $providedParameters,
@@ -63,7 +70,12 @@ class InvokerTypeHintContainerResolver implements ParameterResolver {
         }
 
         foreach($parameters as $index => $parameter) {
-            $parameterClass = $parameter->getClass();
+            $parameterType = $parameter->getType();
+            if(!$parameterType || !($parameterType instanceof \ReflectionNamedType)) {
+                continue;
+            }
+
+            $parameterClass = new \ReflectionClass($parameterType->getName());
 
             if($parameterClass) {
                 if(isset($provided_classes[$parameterClass->name])) {
