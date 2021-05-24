@@ -2,7 +2,7 @@
     "name": "orbiter/satellite",
     "license": "MIT",
     "homepage": "https://bemit.codes",
-    "version": "0.1.0",
+    "version": "0.2.1",
     "description": "Easy to use Event & Middleware Mini-Framework, powered by popular projects and PSR's",
     "require": {
         "php": ">=7.4||>=8.0",
