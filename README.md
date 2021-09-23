@@ -27,14 +27,14 @@ docker run -it --rm -v %cd%:/app composer install
 
 docker run -it --rm -v %cd%:/var/www/html php:8.0-cli-alpine sh
 
-docker run --rm -v %cd%:/var/www/html php:8.0-cli-alpine sh -c "cd /var/www/html && ./vendor/bin/phpunit --testdox -c phpunit-ci.xml"
+docker run --rm -v %cd%:/var/www/html php:8.0-cli-alpine sh -c "cd /var/www/html && ./vendor/bin/phpunit --testdox -c phpunit-ci.xml --bootstrap vendor/autoload.php"
 
 # on unix:
 docker run -it --rm -v `pwd`:/app composer install
 
 docker run -it --rm -v `pwd`:/var/www/html php:8.0-cli-alpine sh
 
-docker run --rm -v `pwd`:/var/www/html php:8.0-cli-alpine sh -c "cd /var/www/html && ./vendor/bin/phpunit --testdox -c phpunit-ci.xml"
+docker run --rm -v `pwd`:/var/www/html php:8.0-cli-alpine sh -c "cd /var/www/html && ./vendor/bin/phpunit --testdox -c phpunit-ci.xml --bootstrap vendor/autoload.php"
 ```
 
 ## License
