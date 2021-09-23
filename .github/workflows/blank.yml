@@ -6,7 +6,7 @@ on:
 
 name: CI
 
-  #env:
+#env:
 #COMPOSER_ROOT_VERSION: "10.0-dev"
 
 jobs:
@@ -192,6 +192,8 @@ jobs:
           php_extensions: xdebug mbstring xml
           bootstrap: vendor/autoload.php
           args: --coverage-clover=coverage.xml
+        env:
+          XDEBUG_MODE: coverage
 
       - name: Send code coverage report to Codecov.io
         uses: codecov/codecov-action@v1
