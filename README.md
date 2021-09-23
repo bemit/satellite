@@ -9,8 +9,7 @@
 - `orbiter/satellite`
 - event handler and default `SatelliteApp` event
 - implements **PSR-14** Event Dispatcher and Listener
-- with invoker to execute anything, **PSR-11** compatible
--
+- using [`InvokerInterface`](https://github.com/PHP-DI/Invoker/blob/2.0.0/src/InvokerInterface.php) to execute anything, **PSR-11** compatible
 
 See [satellite-app](https://github.com/bemit/satellite-app) for a ready to use template or install:
 

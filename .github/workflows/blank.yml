@@ -6,8 +6,8 @@ on:
 
 name: CI
 
-env:
-  COMPOSER_ROOT_VERSION: "10.0-dev"
+#env:
+  #COMPOSER_ROOT_VERSION: "10.0-dev"
 
 jobs:
   #  coding-guidelines:
