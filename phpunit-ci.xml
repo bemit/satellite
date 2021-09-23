@@ -1,0 +1,5 @@
+<testsuites>
+    <testsuite name="Orbiter Satellite Tests">
+        <directory>/tests</directory>
+    </testsuite>
+</testsuites>
