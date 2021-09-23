@@ -126,12 +126,14 @@ jobs:
         if: matrix.dependencies == 'lowest'
         uses: php-actions/composer@v6
         with:
+          command: update
           args: --no-ansi --no-interaction --no-progress --prefer-lowest
 
       - name: Install highest dependencies with composer
         if: matrix.dependencies == 'highest'
         uses: php-actions/composer@v6
         with:
+          command: update
           args: --no-ansi --no-interaction --no-progress
 
       - name: Run tests with phpunit
@@ -170,12 +172,14 @@ jobs:
         if: matrix.dependencies == 'lowest'
         uses: php-actions/composer@v6
         with:
+          command: update
           args: --no-ansi --no-interaction --no-progress --prefer-lowest
 
       - name: Install highest dependencies with composer
         if: matrix.dependencies == 'highest'
         uses: php-actions/composer@v6
         with:
+          command: update
           args: --no-ansi --no-interaction --no-progress
 
       - name: Collect code coverage with phpunit
