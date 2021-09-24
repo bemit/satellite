@@ -2,6 +2,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/orbiter/satellite/version.svg)](https://packagist.org/packages/orbiter/satellite)
 [![Latest Unstable Version](https://poser.pugx.org/orbiter/satellite/v/unstable.svg)](https://packagist.org/packages/orbiter/satellite)
+[![codecov](https://codecov.io/gh/bemit/satellite/branch/master/graph/badge.svg?token=N376EQ2T5O)](https://codecov.io/gh/bemit/satellite)
 [![Total Downloads](https://poser.pugx.org/orbiter/satellite/downloads.svg)](https://packagist.org/packages/orbiter/satellite)
 [![Github actions Build](https://github.com/bemit/satellite/actions/workflows/blank.yml/badge.svg)](https://github.com/bemit/satellite/actions)
 [![PHP Version Require](http://poser.pugx.org/orbiter/satellite/require/php)](https://packagist.org/packages/orbiter/satellite)
