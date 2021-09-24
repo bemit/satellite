@@ -57,13 +57,17 @@ final class EventDispatcherTest extends TestCase {
         $listener->on(
             EventListenerEvent::class,
             static fn(EventListenerEvent $evt) => (new \Satellite\Event\Delegate())
-                ->setHandler(static fn() => new EventListenerEventMore())
+                ->setHandler(static fn() => (new EventListenerEvent())->setTestData('is-delegated-event'))
                 ->setEvent($evt)
         );
         $dispatcher = new \Satellite\Event\EventDispatcher($listener, new InvokerMock());
         $evt = new EventListenerEvent();
+        /**
+         * @var EventListenerEvent $res
+         */
         $res = $dispatcher->dispatch($evt);
-        $this->assertEquals(EventListenerEventMore::class, get_class($res));
+        $this->assertEquals(EventListenerEvent::class, get_class($res));
+        $this->assertEquals('is-delegated-event', $res->getTestData());
     }
 
     public function testDispatchingEventWithDelegateWithoutResult(): void {
@@ -80,6 +84,6 @@ final class EventDispatcherTest extends TestCase {
          * @var EventListenerEvent $res
          */
         $res = $dispatcher->dispatch($evt);
-        $this->assertEquals('is-delegated-but-null-result', $evt->getTestData());
+        $this->assertEquals('is-delegated-but-null-result', $res->getTestData());
     }
 }
