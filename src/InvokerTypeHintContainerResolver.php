@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Satellite;
 
@@ -12,8 +12,8 @@ use ReflectionFunctionAbstract;
  * Based upon Invoker\ParameterResolver\Container\TypeHintContainerResolver,
  * but allows type hinting `providedParameters`, e.g.:
  * - a callable with the signature `(Foo $foo, Bar $bar)`
- * - gets `$invoker->call(callable, [Foo $far])`
- * - `Foo` is not overwritten from container
+ * - when calling with values like: `$invoker->call(callable, [Foo $far])`
+ * - `Foo` is not overwritten from container but the provided parameter is used
  *
  * > note on inheritance: a child class is considered different then the parent for this check.
  *
@@ -48,8 +48,8 @@ class InvokerTypeHintContainerResolver implements ParameterResolver {
      */
     public function getParameters(
         ReflectionFunctionAbstract $reflection,
-        array $providedParameters,
-        array $resolvedParameters
+        array                      $providedParameters,
+        array                      $resolvedParameters
     ) {
         $parameters = $reflection->getParameters();
 

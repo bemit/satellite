@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Satellite\Event;
 
@@ -9,28 +9,30 @@ class Delegate implements DelegateInterface {
     /**
      * @param callable $handler
      */
-    public function setHandler($handler) {
+    public function setHandler($handler): self {
         $this->handler = $handler;
+        return $this;
     }
 
     /**
      * @param object $evt
      */
-    public function setEvent($evt) {
+    public function setEvent($evt): self {
         $this->evt = $evt;
+        return $this;
     }
 
     /**
      * @return callable
      */
-    public function getHandler() {
+    public function getHandler(): callable {
         return $this->handler;
     }
 
     /**
      * @return object
      */
-    public function getEvent() {
+    public function getEvent(): object {
         return $this->evt;
     }
 }

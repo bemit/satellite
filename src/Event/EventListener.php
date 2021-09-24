@@ -1,12 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Satellite\Event;
 
 use Psr\EventDispatcher\ListenerProviderInterface;
 
 class EventListener implements EventListenerInterface, ListenerProviderInterface {
-
-    protected $ids = [];
     protected $store = [];
 
     /**
@@ -17,7 +15,6 @@ class EventListener implements EventListenerInterface, ListenerProviderInterface
         if(!isset($this->store[$id]) || !is_array($this->store[$id])) {
             $this->store[$id] = [];
         }
-        $this->ids[$id] = true;
         $this->store[$id][] = $listener;
     }
 
@@ -29,7 +26,7 @@ class EventListener implements EventListenerInterface, ListenerProviderInterface
      *   An iterable (array, iterator, or generator) of callables.  Each
      *   callable MUST be type-compatible with $event.
      */
-    public function getListenersForEvent($event): iterable {
+    public function getListenersForEvent(object $event): iterable {
         $class = get_class($event);
 
         $events = [];
