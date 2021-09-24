@@ -25,14 +25,14 @@ class Delegate implements DelegateInterface {
     /**
      * @return callable
      */
-    public function getHandler() {
+    public function getHandler(): callable {
         return $this->handler;
     }
 
     /**
      * @return object
      */
-    public function getEvent() {
+    public function getEvent(): object {
         return $this->evt;
     }
 }

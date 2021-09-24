@@ -24,11 +24,9 @@ class EventDispatcher implements \Psr\EventDispatcher\EventDispatcherInterface {
     /**
      * Provide all relevant listeners with an event to process.
      *
-     * @param object|StoppableEventInterface $event
-     *   The object to process.
+     * @param object|StoppableEventInterface $event The object to process.
      *
-     * @return object|\Psr\EventDispatcher\object|\object
-     *   The Event that was passed, now modified by listeners.
+     * @return object The Event that was passed, now modified by listeners.
      * @throws \Invoker\Exception\NotCallableException
      * @throws \Invoker\Exception\NotEnoughParametersException
      *
@@ -55,16 +53,16 @@ class EventDispatcher implements \Psr\EventDispatcher\EventDispatcherInterface {
 
     /**
      * Executes any event_handler with the given event
-     * @param callable $event_handler
+     * @param callable|string|array $event_handler
      * @param object $event
      *
-     * @return object|\Psr\EventDispatcher\object|\object
+     * @return object
      *
      * @throws \Invoker\Exception\NotEnoughParametersException
      * @throws \Invoker\Exception\InvocationException
      * @throws \Invoker\Exception\NotCallableException
      */
-    protected function execute($event_handler, $event) {
+    protected function execute($event_handler, object $event): object {
         if(empty($event_handler)) {
             throw new \RuntimeException('Empty event_handler');
         }

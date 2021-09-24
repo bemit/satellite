@@ -13,35 +13,29 @@ final class EventListenerTest extends TestCase {
         $evt = new EventListenerEvent();
         $listeners = $listener->getListenersForEvent($evt);
         $this->assertEquals(1, count($listeners));
-        if(isset($listeners[0])) {
-            $this->assertEquals(
-                'test-event',
-                $listeners[0]()
-            );
-        }
+        $this->assertEquals(
+            'test-event',
+            $listeners[0]()
+        );
     }
 
     public function testGetParentListenersForEventObject(): void {
         $listener = new \Satellite\Event\EventListener();
         // also testing on order here, e.g. the `parent` must be after the events of the same class in the found listeners
         $listener->on(EventListenerEventParent::class, static fn() => 'test-event-parent');
-        $listener->on(EventListenerEventMore::class, static fn() => 'some-other');
         $listener->on(EventListenerEvent::class, static fn() => 'test-event');
         $evt = new EventListenerEvent();
         $listeners = $listener->getListenersForEvent($evt);
         $this->assertEquals(2, count($listeners));
-        if(isset($listeners[0])) {
-            $this->assertEquals(
-                'test-event',
-                $listeners[0]()
-            );
-        }
-        if(isset($listeners[1])) {
-            $this->assertEquals(
-                'test-event-parent',
-                $listeners[1]()
-            );
-        }
+        $this->assertEquals(
+            'test-event',
+            $listeners[0]()
+        );
+
+        $this->assertEquals(
+            'test-event-parent',
+            $listeners[1]()
+        );
     }
 
     public function testGetListenersForUnknownEvent(): void {

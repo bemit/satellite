@@ -3,7 +3,7 @@
 namespace Satellite\Event;
 
 trait StoppableEvent {
-    protected $stopped = false;
+    protected bool $stopped = false;
 
     public function stopPropagation(): self {
         $this->stopped = true;
