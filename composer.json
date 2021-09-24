@@ -3,11 +3,11 @@
     "license": "MIT",
     "homepage": "https://bemit.codes",
     "version": "0.3.0",
-    "description": "PHP Event Dispatcher with listener providing PSR-14, compatible with PSR-11 container and customer invokers.",
+    "description": "PHP Event Dispatcher with listener and PSR-14 dispatcher, compatible with PSR-11 container and custom invokers.",
     "require": {
         "php": ">=7.4||>=8.0",
         "psr/event-dispatcher": "^1.0",
-        "psr/container": "^1.0",
+        "psr/container": "^1.0|^2.0",
         "php-di/invoker": "^2.0.0"
     },
     "provide": {
