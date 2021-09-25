@@ -2,7 +2,7 @@
     "name": "orbiter/satellite",
     "license": "MIT",
     "homepage": "https://bemit.codes",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "PHP Event Dispatcher with listener and PSR-14 dispatcher, compatible with PSR-11 container and custom invokers.",
     "require": {
         "php": ">=7.4||>=8.0",
