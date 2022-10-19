@@ -9,7 +9,6 @@
 
 - **PSR-14** Event Dispatcher and Listener
 - using [`InvokerInterface`](https://github.com/PHP-DI/Invoker/blob/2.0.0/src/InvokerInterface.php) to execute anything, **PSR-11** compatible
-- includes the optional `SatelliteApp` event, used by [satellite-app](https://github.com/bemit/satellite-app)
 
 Check [satellite-app](https://github.com/bemit/satellite-app) for a ready to use template, or install just this event library:
 
@@ -53,16 +52,16 @@ Commands to set up and run e.g. tests:
 # on windows:
 docker run -it --rm -v %cd%:/app composer install
 
-docker run -it --rm -v %cd%:/var/www/html php:8.0-cli-alpine sh
+docker run -it --rm -v %cd%:/var/www/html php:8.1-cli-alpine sh
 
-docker run --rm -v %cd%:/var/www/html php:8.0-cli-alpine sh -c "cd /var/www/html && ./vendor/bin/phpunit --testdox -c phpunit-ci.xml --bootstrap vendor/autoload.php"
+docker run --rm -v %cd%:/var/www/html php:8.1-cli-alpine sh -c "cd /var/www/html && ./vendor/bin/phpunit --testdox -c phpunit-ci.xml --bootstrap vendor/autoload.php"
 
 # on unix:
 docker run -it --rm -v `pwd`:/app composer install
 
-docker run -it --rm -v `pwd`:/var/www/html php:8.0-cli-alpine sh
+docker run -it --rm -v `pwd`:/var/www/html php:8.1-cli-alpine sh
 
-docker run --rm -v `pwd`:/var/www/html php:8.0-cli-alpine sh -c "cd /var/www/html && ./vendor/bin/phpunit --testdox -c phpunit-ci.xml --bootstrap vendor/autoload.php"
+docker run --rm -v `pwd`:/var/www/html php:8.1-cli-alpine sh -c "cd /var/www/html && ./vendor/bin/phpunit --testdox -c phpunit-ci.xml --bootstrap vendor/autoload.php"
 ```
 
 ## Versions
@@ -79,4 +78,4 @@ By committing your code to the code repository you agree to release the code und
 
 ***
 
-Maintained by [Michael Becker](https://mlbr.xyz)
+Maintained by [Michael Becker](https://i-am-digital.eu)

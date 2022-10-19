@@ -27,13 +27,14 @@ final class EventListenerTest extends TestCase {
         $evt = new EventListenerEvent();
         $listeners = $listener->getListenersForEvent($evt);
         $this->assertEquals(2, count($listeners));
+
         $this->assertEquals(
-            'test-event',
+            'test-event-parent',
             $listeners[0]()
         );
 
         $this->assertEquals(
-            'test-event-parent',
+            'test-event',
             $listeners[1]()
         );
     }
