@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Satellite;
+namespace Satellite\Invoker;
 
 use Invoker\ParameterResolver\ParameterResolver;
 use Psr\Container\ContainerInterface;

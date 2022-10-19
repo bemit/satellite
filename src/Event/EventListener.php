@@ -8,10 +8,9 @@ class EventListener implements EventListenerInterface, ListenerProviderInterface
     protected $store = [];
 
     /**
-     * @param string $id of the event, typically the classname like `RouteEvent::class`
-     * @param callable|string|array $listener anything the invoker can execute
+     * @inheritdoc
      */
-    public function on(string $id, $listener) {
+    public function on(string $id, callable|string|array $listener) {
         if(!isset($this->store[$id]) || !is_array($this->store[$id])) {
             $this->store[$id] = [];
         }
@@ -30,14 +29,14 @@ class EventListener implements EventListenerInterface, ListenerProviderInterface
         $class = get_class($event);
 
         $events = [];
-        if(isset($this->store[$class])) {
-            array_push($events, ...$this->store[$class]);
-        }
         $parents = class_parents($event);
         foreach($parents as $parent) {
             if(isset($this->store[$parent])) {
                 array_push($events, ...$this->store[$parent]);
             }
+        }
+        if(isset($this->store[$class])) {
+            array_push($events, ...$this->store[$class]);
         }
 
         return $events;

@@ -2,10 +2,10 @@
     "name": "orbiter/satellite",
     "license": "MIT",
     "homepage": "https://bemit.codes",
-    "version": "0.3.1",
+    "version": "0.4.0",
     "description": "PHP Event Dispatcher with listener and PSR-14 dispatcher, compatible with PSR-11 container and custom invokers.",
     "require": {
-        "php": ">=7.4||>=8.0",
+        "php": ">=8.1",
         "psr/event-dispatcher": "^1.0",
         "psr/container": "^1.0|^2.0",
         "php-di/invoker": "^2.0.0"
@@ -15,7 +15,9 @@
     },
     "autoload": {
         "psr-4": {
-            "Satellite\\": "src"
+            "Satellite\\Event\\": "src/Event",
+            "Satellite\\EventProfiler\\": "src/EventProfiler",
+            "Satellite\\Invoker\\": "src/Invoker"
         }
     },
     "minimum-stability": "dev",
